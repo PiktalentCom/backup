@@ -1,0 +1,27 @@
+{
+    "name": "piktalent/backup",
+    "type": "project",
+    "require": {
+        "symfony/filesystem": "^3.0",
+        "symfony/console": "^3.0",
+        "symfony/finder": "^3.0",
+        "symfony/process": "^3.0",
+        "symfony/yaml": "^3.0",
+        "dropbox/dropbox-sdk": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Piktalent\\Backup\\": "src/"
+        }
+    },
+    "bin": [
+        "bin/console"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tech",
+            "email": "tech@piktalent.com"
+        }
+    ]
+}
