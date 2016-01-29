@@ -9,16 +9,16 @@ class DirectoryManager
 {
     private $temporaryDirectory;
     private $output,
-        $directoriesBackup,
-        $basePath,
-        $outputPath, $filesystem;
+            $directoriesBackup,
+            $basePath,
+            $outputPath, $filesystem;
 
     public function __construct($basePath, array $directoriesBackup = [], $temporaryDirectory)
     {
-        $this->basePath = $basePath;
+        $this->basePath          = $basePath;
         $this->directoriesBackup = $directoriesBackup;
-        $this->outputPath = $temporaryDirectory . "/directories/";
-        $this->filesystem = new Filesystem();
+        $this->outputPath        = $temporaryDirectory . "/directories/";
+        $this->filesystem        = new Filesystem();
     }
 
 

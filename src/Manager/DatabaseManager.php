@@ -28,15 +28,15 @@ class DatabaseManager
      */
     public function __construct($host, $port, $dbname, $user, $password)
     {
-        $this->host = $host;
-        $this->port = $port;
-        $this->dbname = $dbname;
-        $this->user = $user;
+        $this->host     = $host;
+        $this->port     = $port;
+        $this->dbname   = $dbname;
+        $this->user     = $user;
         $this->password = $password;
-        $this->timeout = 300;
+        $this->timeout  = 300;
 
         $this->authPrefix = sprintf('export PGPASSWORD="%s" && ', $password);
-        $this->auth = sprintf('--username "%s" ', $user);
+        $this->auth       = sprintf('--username "%s" ', $user);
     }
 
 

@@ -4,21 +4,31 @@
 namespace Piktalent\Backup\Manager;
 
 
+use Piktalent\Backup\Processor\ProcessorInterface;
 use Symfony\Component\Process\Process;
 
 class CompressManager
 {
 
-    private $settings,
-        $processor,
-        $directory, $password;
+    private $settings;
+    /** @var ProcessorInterface processor */
+    private $processor;
+
+    private $directory, $password;
 
     function __construct($settings, $tempDirectory)
     {
-        $this->settings = $settings;
-        $this->directory = $tempDirectory;
+        $this->settings   = $settings;
+        $this->directory  = $tempDirectory;
         $processNamespace = "\\Piktalent\\Backup\\Processor\\" . ucfirst($settings['compress']) . 'Processor';
+        if (!class_exists($processNamespace)) {
+            throw new \RuntimeException(sprintf('Process %s doesn\'t exists', $settings['compress']));
+        }
+
         $this->processor = new $processNamespace;
+        if (array_key_exists('password', $settings)) {
+            $this->setPassword($settings['password']);
+        }
     }
 
     public function execute()
@@ -30,6 +40,7 @@ class CompressManager
         if (!$process->isSuccessful()) {
             throw new \RuntimeException($process->getErrorOutput());
         }
+        return $this->buildArchiveFilename();
     }
 
     public function compress()

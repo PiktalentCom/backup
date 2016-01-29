@@ -15,7 +15,7 @@ abstract class BaseProcessor
     /**
      * @param array $options
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         $this->options = $options;
     }

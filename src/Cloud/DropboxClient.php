@@ -21,9 +21,10 @@ class DropboxClient implements ClientInterface
      */
     public function __construct($params)
     {
-        $params = $params['dropbox_sdk'];
+        $params             = $params['dropbox_sdk'];
         $this->access_token = $params['access_token'];
-        $this->remotePath = $params['remote_path'];
+        $this->remotePath   = $params['remote_path'];
+        Dropbox\RootCertificates::useExternalPaths();
     }
 
     /**
@@ -31,7 +32,7 @@ class DropboxClient implements ClientInterface
      */
     public function upload($archive)
     {
-        $fileName = explode('/', $archive);
+        $fileName  = explode('/', $archive);
         $pathError = Dropbox\Path::findErrorNonRoot($this->remotePath);
 
         if ($pathError !== null) {
@@ -39,6 +40,7 @@ class DropboxClient implements ClientInterface
         }
 
         $client = new Dropbox\Client($this->access_token, 'CloudBackupBundle');
+
         $size = filesize($archive);
 
         $fp = fopen($archive, 'rb');
