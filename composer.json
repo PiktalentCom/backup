@@ -23,5 +23,8 @@
             "name": "Tech",
             "email": "tech@piktalent.com"
         }
-    ]
+    ],
+    "require-dev": {
+        "symfony/var-dumper": "^3.0"
+    }
 }
