@@ -37,7 +37,7 @@ instances:
             compress: zip
             ratio: 9
             password: "okdaokdaopdpk"
-        storages: [Dropbox]
+            storages: [Dropbox]
         cloud_storages:
             dropbox_sdk:
             access_token: ~
