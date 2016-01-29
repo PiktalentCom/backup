@@ -1,0 +1,22 @@
+{
+    "main": "bin/console",
+    "output": "backup.phar",
+    "stub": true,
+    "chmod": "0755",
+    "directories": [
+        "src"
+    ],
+    "finder": [
+        {
+            "exclude": [
+                "Tests",
+                "test",
+                "support",
+                "LICENCE",
+                "*.md",
+                "examples"
+            ],
+            "in": "vendor"
+        }
+    ]
+}
