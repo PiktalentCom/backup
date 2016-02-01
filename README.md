@@ -1,4 +1,4 @@
-Backup your projects and upload on Dropbox 
+#Backup your projects and upload on Dropbox
 
 Database supported for the moment ```postgresql```
 
@@ -44,7 +44,8 @@ instances:
             remote_path: "  /otherinstance"
 		
 ```
-Build your phar application
+
+#Build your phar application
 
 [Box2](https://github.com/box-project/box2)
 
