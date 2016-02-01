@@ -44,3 +44,8 @@ instances:
             remote_path: "  /otherinstance"
 		
 ```
+Build your phar application
+
+[Box2](https://github.com/box-project/box2)
+
+``` composer install --no-dev && box build -v ```
