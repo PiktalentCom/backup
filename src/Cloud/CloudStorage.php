@@ -13,14 +13,15 @@ class CloudStorage
     private $storages;
     private $cloudStorages;
     private $taskName;
-    private $pathToFileCompressed;
-    public function __construct(OutputInterface $io, $storages, $cloudStorages, $taskName,$pathToFileCompressed)
+    private $pathToFiles;
+
+    public function __construct(OutputInterface $io, $storages, $cloudStorages, $taskName, array $pathToFiles = [])
     {
         $this->storages      = $storages;
         $this->io            = $io;
         $this->cloudStorages = $cloudStorages;
         $this->taskName      = $taskName;
-        $this->pathToFileCompressed = $pathToFileCompressed;
+        $this->pathToFiles   = $pathToFiles;
     }
 
 
@@ -51,7 +52,11 @@ class CloudStorage
                     ]
                 ]
             );
-            $dropbox->upload($this->pathToFileCompressed);
+
+            foreach ($this->pathToFiles as $pathToFile) {
+                $dropbox->upload($pathToFile);
+            }
+
             $this->io->success(sprintf('Upload %s to Dropbox ', $this->taskName));
         }
     }

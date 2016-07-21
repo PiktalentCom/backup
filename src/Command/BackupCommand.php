@@ -51,7 +51,14 @@ class BackupCommand extends Command
              */
             $this->backupDirectories($io, $key, $instance);
 
-            $fileCompressedPath = $this->compress($io,$key,  $instance);
+            $fileCompressedPath = $this->compress($io, $key, $instance);
+
+            $hashFile = $this->generateHashFile($fileCompressedPath);
+
+            $filesForCloud = [
+                $fileCompressedPath,
+                $hashFile
+            ];
 
             if (!array_key_exists('storages', $instance['processor'])) {
                 throw new \RuntimeException("You storages is not defined");
@@ -61,7 +68,7 @@ class BackupCommand extends Command
                 $instance['processor']['storages'],
                 $instance['cloud_storages'],
                 $key,
-                $fileCompressedPath
+                $filesForCloud
             );
             $cloudStorage->execute();
         }
@@ -93,6 +100,25 @@ class BackupCommand extends Command
         return $fileCompressedPath;
     }
 
+    /**
+     * @param $fileCompressedPath
+     * @return string
+     * Generate hash of file
+     */
+    private function generateHashFile($fileCompressedPath)
+    {
+        $hash = md5_file($fileCompressedPath);
+        $hashName = $fileCompressedPath . ".md5";
+        file_put_contents($hashName, $hash);
+        return $hashName;
+    }
+
+    /**
+     * @param \Symfony\Component\Console\Output\OutputInterface $io
+     * @param                                                   $key
+     * @param                                                   $instance
+     * Backup database
+     */
     private function backupDatabase(OutputInterface $io, $key, $instance)
     {
         if (array_key_exists('database', $instance)) {
