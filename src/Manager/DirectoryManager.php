@@ -4,6 +4,8 @@ namespace Piktalent\Backup\Manager;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 class DirectoryManager
 {
@@ -42,7 +44,15 @@ class DirectoryManager
     {
         // Copy folder for compression file
         foreach ($this->directoriesBackup as $directory) {
-            $this->filesystem->mirror($this->basePath . '/' . $directory, $this->outputPath . $directory);
+            $originDirectory = $this->basePath . '/' . $directory;
+            $mirror          = $this->outputPath . $directory . '/';
+            $finder          = new Finder();
+            /** @var SplFileInfo $file */
+            foreach ($finder->in($originDirectory)->files() as $file) {
+                if (false !== @fopen($file->getRealPath(), 'r')) {
+                    $this->filesystem->copy($file->getRealPath(), $mirror . $file->getRelativePathname());
+                }
+            }
         }
     }
 
