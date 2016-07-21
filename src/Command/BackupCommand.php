@@ -75,6 +75,12 @@ class BackupCommand extends Command
 
     }
 
+    /**
+     * @param \Symfony\Component\Console\Output\OutputInterface $io
+     * @param                                                   $key
+     * @param                                                   $instance
+     * Generate directory backup
+     */
     private function backupDirectories(OutputInterface $io, $key, $instance)
     {
 
@@ -90,6 +96,13 @@ class BackupCommand extends Command
         }
     }
 
+    /**
+     * @param \Symfony\Component\Console\Output\OutputInterface $io
+     * @param                                                   $key
+     * @param                                                   $instance
+     * @return string
+     * Compress directory of backup
+     */
     private function compress(OutputInterface $io, $key, $instance)
     {
 
