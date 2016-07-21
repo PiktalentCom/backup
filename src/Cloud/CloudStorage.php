@@ -27,8 +27,8 @@ class CloudStorage
 
     public function execute()
     {
-        foreach($this->storages as $storage){
-            if(!method_exists($this, $storage)){
+        foreach ($this->storages as $storage) {
+            if (!method_exists($this, $storage)) {
                 throw new \RuntimeException(sprintf('This %s doesn\'t exists'));
             }
             $this->{$storage}();
@@ -41,7 +41,7 @@ class CloudStorage
         if (array_key_exists('dropbox_sdk', $this->cloudStorages)) {
             $dropboxSDK = $this->cloudStorages['dropbox_sdk'];
             $this->io->caution(sprintf('Upload %s to Dropbox ', $this->taskName));
-            if(!array_key_exists('access_token', $dropboxSDK)|| ! array_key_exists('remote_path', $dropboxSDK)){
+            if (!array_key_exists('access_token', $dropboxSDK) || !array_key_exists('remote_path', $dropboxSDK)) {
                 throw  new \RuntimeException('You Dropbox settings is not defined');
             }
             $dropbox = new \Piktalent\Backup\Cloud\DropboxClient(
